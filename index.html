@@ -133,7 +133,7 @@
         const password = document.getElementById('password').value;
 
         /
-        if (username === 'admin' && password === '') {
+        if (username === 'admin' && password === '123456789maman') {
           // Hachage du mot de passe avant de le stocker
           const hashedPassword = CryptoJS.SHA256(password).toString();
 
