@@ -1,0 +1,154 @@
+ <html><head>
+
+<!--<base href="https://auth.personalwebsite.com/"><-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accès Sécurisé - Site Personnel</title>
+  <style>
+    :root {
+      --primary-color: #00ffff;
+      --secondary-color: #ff00ff;
+      --background-color: #000033;
+      --text-color: #ffffff;
+      --card-bg-color: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(255, 0, 255, 0.1) 0%, transparent 20%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 90%;
+      width: 400px;
+      padding: 40px;
+      background-color: var(--card-bg-color);
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--primary-color);
+      text-shadow: 0 0 10px var(--primary-color);
+      margin-bottom: 30px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 25px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--text-color);
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--primary-color);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 25px;
+      background-color: var(--primary-color);
+      color: var(--background-color);
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: var(--secondary-color);
+      box-shadow: 0 0 15px var(--secondary-color);
+    }
+
+    .error-message {
+      color: #ff0000;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: 90%;
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      input, button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Accès Sécurisé</h1>
+    <h2>bonjour la team d4tq defender<h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Nom d'utilisateur" required>
+      <input type="password" id="password" placeholder="Mot de passe" required>
+      <button type="submit">Se connecter</button>
+    </form>
+    <p class="error-message" id="errorMessage"></p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const loginForm = document.getElementById('loginForm');
+      const errorMessage = document.getElementById('errorMessage');
+
+      // Vérifier si l'utilisateur est déjà authentifié
+      if (localStorage.getItem('isAuthenticated')) {
+        window.location.href = '';
+      }
+
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        /
+        if (username === 'admin' && password === '') {
+          // Hachage du mot de passe avant de le stocker
+          const hashedPassword = CryptoJS.SHA256(password).toString();
+
+         
+          localStorage.setItem('username', username);
+          localStorage.setItem('password', hashedPassword);
+          localStorage.setItem('isAuthenticated', 'false');
+
+          
+          window.location.href = 'http://www.justice.gouv.ne/interne/index.php?view=reset';
+        } else {
+          errorMessage.textContent = 'Identifiants incorrects. Veuillez réessayer.';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
